@@ -1,0 +1,174 @@
+C++ Programming Assignments
+Inheritance – Ch11: BankAccount and CheckingAccount
+
+Please adhere to the Standards for Programming Assignments. Submit the following:
+•	List of source code with comments to document it 
+•	Test output  listed as comments at the end of your program. Use test data if provided.
+
+
+1.	(10 points) CheckingAccount.h. CheckingAccount is a subclass of BankAccount.   Implement the CheckingAccount class based on the UML below.  Store your class definition in a header file called CheckingAccount.h.   A checking account has a transaction fee that is associated with all deposits and withdrawals.  
+
+2.	BankAccount.h Use the BankAccount parent class definition in file BankAccount.h.  Download from BB.  A parent class is also called a super class or a base class.  You are NOT allowed to change the BankAccount class code in any way, with one exception: you can change all member/instance variables from private to protected.
+
+3.	(5 pts) Bank.cpp. Download from BB.  Modify to create and manipulate CheckingAccount objects.
+
+•	Add #include statements for BankAccount and CheckingAccount
+•	Change the studentAccount object to a CheckingAccount object
+•	Modify the switch statement to add the ability to set the transaction fee.  Make sure that you do not allow negative values.  Adjust the function displayMenu() accordingly.
+
+ 
+
+CheckingAccount
+
+
+-transactionFee : double               // all transactions (deposits and withdrawals) get charged this fee
+
++CheckingAccount( )   //constructor.  Initialize acctNumber to 0, name to “Unknown”, balance to 0.0, transactionFee to 1.00.
+
+
++setTransactionFee(trFee : double) : void  // sets instance variable transactionFee
+
++getTransactionFee( ) : double    //returns the value of instance variable transactionFee
+
++deposit(amount : double) : void    //adds the amount  to the balance and subtracts  the transactionFee from the balance
+
++withdraw(amount : double) : void //subtracts the amount  from the balance and subtracts  the transactionFee from the balance
+
++displayData( ) : void      //displays the current values of all instance variables of a checking account
+
+
+ 
+Design Notes:
+
+•	Create the CheckingAccount child class in file CheckingAccount.h.  A child class is also called a subclass or a derived class. 
+
+
+class CheckingAccount : public BankAccount  
+//CheckingAccount inherits from BankAccount
+{
+	private: 
+		//declare member variables here
+
+	public:  
+//declare function prototypes
+
+}; //end of CheckingAccount class
+
+//Member function implementation section
+//Implementation code for each function prototype declared
+
+
+
+
+Create a CheckingAccount constructor. The CheckingAccount constructor will call the corresponding superclass constructor.  You will also need to initialize transactionFee in the constructor.  Here is example code for the CheckingAccount constructor.  In this example you see that a call is made to the BankAccount constructor.  This initializes the member variables defined in BankAccount.  Then the member variable transactionFee is initialized.
+
+CheckingAccount:: CheckingAccount() : BankAccount() 
+// constructor first calls the BankAccount constructor
+// then initializes transactionFee
+{
+	transactionFee = 1.00;
+}
+
+
+
+Add the accessor/get and mutator/set functions for transactionFee.
+
+Create deposit and withdraw methods in CheckingAccount.   Since there is a fee associated with all deposits and withdrawals in a checking account, you will need to create deposit and withdraw methods in CheckingAccount.  These methods will override the deposit and withdraw methods in BankAccount.  Make sure that the member variables in your super class have been set to protected rather than private.
+
+Add a displayData function.  This function overrides the displayData function in BankAccount. Here is an example of possible code.
+
+
+void CheckingAccount:: displayData()
+{
+//call the displayData function from BankAccount
+	BankAccount::displayData(); 
+	cout << fixed << showpoint << setprecision(2);
+	cout << "Transaction Fee:" << setw(15) << transactionFee << endl;
+}	
+
+
+
+
+Example of expected output:
+
+
+         Welcome to your bank
+
+1. Make a deposit
+2. Make a withdrawal
+3. Set the account name
+4. Set the account number
+5. Set the transaction fee
+6. Display account information
+7. Exit
+
+Please enter your choice: 6
+
+   Account Information
+-------------------------
+         Number:              0
+           Name:        Unknown
+        Balance:           0.00
+Transaction Fee:           1.00
+
+         Welcome to your bank
+
+1. Make a deposit
+2. Make a withdrawal
+3. Set the account name
+4. Set the account number
+5. Set the transaction fee
+6. Display account information
+7. Exit
+
+Please enter your choice: 1
+
+Deposit amount. Enter value: -50
+Enter value: (0 or greater): 50
+
+         Welcome to your bank
+
+1. Make a deposit
+2. Make a withdrawal
+3. Set the account name
+4. Set the account number
+5. Set the transaction fee
+6. Display account information
+7. Exit
+
+Please enter your choice: 3
+
+Enter the name: Joe Smith
+
+         Welcome to your bank
+
+1. Make a deposit
+2. Make a withdrawal
+3. Set the account name
+4. Set the account number
+5. Set the transaction fee
+6. Display account information
+7. Exit
+
+Please enter your choice: 4
+
+Account number. Enter value: 23456
+
+         Welcome to your bank
+
+1. Make a deposit
+2. Make a withdrawal
+3. Set the account name
+4. Set the account number
+5. Set the transaction fee
+6. Display account information
+7. Exit
+
+Please enter your choice: 6
+
+   Account Information
+-------------------------
+         Number:          23456
+           Name:      Joe Smith
+        Balance:          49.00
+Transaction Fee:           1.00
